@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mi hannita y tu honeybun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Music Player */
+        .music-player {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 15px 25px;
+            margin: 20px auto;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .music-icon {
+            font-size: 1.5em;
+            color: #d1436b;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        .music-player audio {
+            flex: 1;
+            max-width: 100%;
+        }
+
+        .music-note {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            font-style: italic;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        /* Photo Gallery Section */
+        .photo-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #d1436b;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '♥';
+            display: block;
+            font-size: 0.5em;
+            margin-top: 10px;
+            color: #ff6b6b;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .photo-container {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ffe0ec 0%, #ffc0cb 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            height: 300px;  /* Fixed height for all photos */
+        }
+
+        .photo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.5);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;  /* This crops photos to fit nicely */
+        }
+
+        .photo-upload-label {
+            color: #d1436b;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        .photo-upload-label:hover {
+            color: #b13155;
+        }
+
+        .hidden-input {
+            display: none;
+        }
+
+        .remove-photo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #d1436b;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            z-index: 10;
+        }
+
+        .photo-container:hover .remove-photo {
+            display: block;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .story-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .story-content p {
+            margin-bottom: 20px;
+        }
+
+        /* Words Section */
+        .words-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .words-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .word-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 25px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .word-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .word-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .word-card .content {
+            min-height: 100px;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .word-card .placeholder {
+            opacity: 0.7;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>mi hannita y tu honeybun <span class="heart">♥</span></h1>
+            <p>solo para ti, mi reina</p>
+            
+            <!-- Music Player -->
+            <div class="music-player">
+                <span class="music-icon">♪</span>
+                <audio controls loop>
+                    <!-- Local file option -->
+                    <source src="cas.mp3" type="audio/mpeg">
+                    
+                    <!-- Alternative: Use a full URL for deployed version -->
+                    <!-- <source src="https://yourdomain.com/path-to/your-song.mp3" type="audio/mpeg"> -->
+                    
+                    <!-- Alternative: Use a service like Dropbox, Google Drive, or GitHub -->
+                    <!-- <source src="https://www.dropbox.com/s/YOUR-FILE-ID/song.mp3?raw=1" type="audio/mpeg"> -->
+                    
+                    Your browser does not support the audio element.
+                </audio>
+                <span class="music-icon">♪</span>
+            </div>
+            <p class="music-note">una cancion que me recuerda a nosotros</p>
+        </div>
+
+        <!-- Photo Gallery Section -->
+         <div class="photo-section">
+            <h2 class="section-title">us</h2>
+            <div class="photo-gallery">
+                <div class="photo-container" id="photo1">
+                    <img src="1.jpg" alt="Our Memory 1">
+                    <!-- Or use a URL: <img src="https://example.com/photo1.jpg" alt="Our Memory 1"> -->
+                </div>
+                <div class="photo-container" id="photo2">
+                    <img src="2.jpg" alt="Our Memory 2">
+                </div>
+                <div class="photo-container" id="photo3">
+                    <img src="3.jpg" alt="Our Memory 3">
+                </div>
+                <div class="photo-container" id="photo4">
+                    <img src="4.jpg" alt="Our Memory 4">
+                </div>
+                <div class="photo-container" id="photo5">
+                    <img src="5.jpg" alt="Our Memory 5">
+                </div>
+                <div class="photo-container" id="photo6">
+                    <img src="6.jpg" alt="Our Memory 6">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Section -->
+        <div class="story-section">
+            <h2 class="section-title">Our Story</h2>
+            <div class="story-content">
+                <p>
+                    <em>mi reina, there's nothing more in the world that I love more than you. every second I spend with you goes by like it's nothing. you bring out so much good in me hannah, and you genuinely drive me to do better things.</em>
+                </p>
+                <p>
+                    <em>your the prettiest girl in the world. there's no one else that can ever amount to what you do, the traits you hold, and the words that are spoken from your soul.</em>
+                </p>
+                <p>
+                    <em>we are going to college soon hannah, and we are also seeing eachother a little less. everytime i think of my future, i always think of you in it. but for anytime i'm not there with you at any given moment, because i'm working, or because we are doing school, scroll down a littke further.</em>
+                </p>
+            </div>
+        </div>
+
+        <!-- Words Section -->
+        <div class="words-section">
+            <h2 class="section-title">FOR ANYTIME I'M NOT THERE</h2>
+            <div class="words-grid">
+                <div class="word-card">
+                    <h3>IF YOU MISS ME</h3>
+                    <div class="content">
+                        <p class="placeholder">HI HONEYBUN :3 I PROMISE I'M THINKING OF YOU TOO. JUST KNOW THAT IN MY HEAD, WHATEVER I'M DOING RIGHT NOW IS NOT MORE IMPORTANT THAN YOU. I LOVE YOU BABY AND WE WILL SEE EACHOTHER SOON.</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>LOVE ME</h3>
+                    <div class="content">
+                        <p class="placeholder">i love you so much hannah. forever and always my baby. there's nothing more that i want in this world other than you mi bebe. i know you love me. please know that i love you so much.</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>WE ARE ARGUING</h3>
+                    <div class="content">
+                        <p class="placeholder">:c i know you're probably mad at me right now my love, but whatever i did, i truly am sorry. everythings gonna be okay my love, adn everytime we argue we always come back loving eachother more than we did yesterday. it will not be like this forever my love. i love you.</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>FEEL FAT</h3>
+                    <div class="content">
+                        <p class="placeholder">My love, you are not fat. you work so hard in the gym and outside the gym as well. you eat amazing, and you're the hardest working person in the world. your body is so tea my love. I love you.</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>YOUR PARENTS</h3>
+                    <div class="content">
+                        <p class="placeholder">My love :c I know that your parents can be really frustrating my love. But you're the strongest girl I know, and you will get through this! Soon you will be moved out, and on your own.</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>YOUR SIBLINGS</h3>
+                    <div class="content">
+                        <p class="placeholder">My love :c I know Jesus can be really annoying, lazy, and ian can be overwhelming. but if you can my love talk to me! take your mind off of them and it'll be over soon.</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>YOUR JOB</h3>
+                    <div class="content">
+                        <p class="placeholder">;c if you're still at puerto nuevo, i'm sorry theyre mistreating you my love. you deserve so much better than this honeybun, and you will get a new one soon!</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>YOUR FUTURE</h3>
+                    <div class="content">
+                        <p class="placeholder">my love, you got this!!!! Everythings going to be just okay and you will achieve your goals!! I love you!</p>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <h3>US</h3>
+                    <div class="content">
+                        <p class="placeholder">MY LOVE!!!!!! I LOVE US SO MUCH, AND WE ARE GOING TO BE TOGETHER FOREVER!!!! i'll never stop loving you. This website is proof of that. As long as the internet is around, this will always be here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Forever & Always <span class="heart">♥</span></p>
+        </div>
+    </div>
+</body>
+</html>
